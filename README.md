@@ -1,8 +1,5 @@
-tutorials
+Tutorials
 =========
 
-The goal is to gather here a variety of 
-tutorials in the IPython notebook format.
-
-At present, this is empty...
-
+This is a small collection of ipython notebooks. They provide tutorials to
+learn to use TRIQS. Hopefully over time their number will increase!
