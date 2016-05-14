@@ -5,8 +5,8 @@ from pytriqs.applications.impurity_solvers.cthyb import Solver
 import numpy as np
 
 import os
-if not os.path.exists('results'):
-    os.makedirs('results')
+if not os.path.exists('results_one_band'):
+    os.makedirs('results_one_band')
 
 # Parameters of the model
 t = 1.0
@@ -39,6 +39,6 @@ for U in np.arange(1.0, 13.0):
             )
     
         # Save iteration in archive
-        with HDFArchive("results/single-U%.2f.h5"%U) as A:
+        with HDFArchive("results_one_band/half-U%.2f.h5"%U) as A:
             A['G-%i'%i] = S.G_iw
             A['Sigma-%i'%i] = S.Sigma_iw
