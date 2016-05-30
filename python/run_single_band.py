@@ -18,6 +18,7 @@ S = Solver(beta = beta, gf_struct = {'up':[0], 'down':[0]})
 
 # I run for several values of U
 for U in np.arange(1.0, 13.0):
+    print 'U =', U
 
     # This is a first guess for G
     S.G_iw << SemiCircular(2*t)
