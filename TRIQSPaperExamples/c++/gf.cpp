@@ -26,8 +26,7 @@ int main() {
 
  // A multivariable gf: G(k,omega)
  auto bz = brillouin_zone{bravais_lattice{{{1, 0}, {0, 1}}}};
- auto g_k_iw = gf<cartesian_product<brillouin_zone, imfreq>>{
-     {{bz, 100}, {beta, Fermion, n_freq}}, {1, 1}};
+ auto g_k_iw = gf<cartesian_product<brillouin_zone, imfreq>>{{{bz, 100}, {beta, Fermion, n_freq}}, {1, 1}};
 
  g_k_iw(k_, iw_) << 1 / (iw_ - 2 * (cos(k_(0)) + cos(k_(1))) - 1 / (iw_ + 2));
 
@@ -38,4 +37,3 @@ int main() {
  h5_write(f, "g_tau", g_tau);
  h5_write(f, "block_gf", G_iw);
 }
-

@@ -2,9 +2,9 @@
 using namespace triqs::arrays;
 int main() {
 
- auto a = matrix<double>(2, 2);                // Declare a 2x2 matrix of double
- auto b = array<double, 3>(5, 2, 2);           // Declare a 5x2x2 array of double
- auto c = array<double, 2> {{1,2,3}, {4,5,6}}; // 2x3 array, with initialization
+ auto a = matrix<double>(2, 2);                   // Declare a 2x2 matrix of double
+ auto b = array<double, 3>(5, 2, 2);              // Declare a 5x2x2 array of double
+ auto c = array<double, 2>{{1, 2, 3}, {4, 5, 6}}; // 2x3 array, with initialization
 
  triqs::clef::placeholder<0> i_;
  triqs::clef::placeholder<1> j_;
@@ -33,4 +33,3 @@ int main() {
  auto lambda = [](double r, double x) { return r + std::abs(x); };
  auto norm = fold(lambda)(a, 0);
 }
-
