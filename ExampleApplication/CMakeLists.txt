@@ -13,8 +13,7 @@ list(APPEND CMAKE_MODULE_PATH ${TRIQS_PATH}/share/triqs/cmake)
 find_package(TRIQS REQUIRED)
 
 # We want to be installed in the TRIQS tree
-#set(CMAKE_INSTALL_PREFIX ${TRIQS_PATH})
-set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/INSTALL_DIR)
+set(CMAKE_INSTALL_PREFIX ${TRIQS_PATH})
 
 # Compile C++ code
 add_subdirectory(c++)
@@ -27,4 +26,3 @@ endif()
 
 # Add tests
 #add_subdirectory(test)
-
