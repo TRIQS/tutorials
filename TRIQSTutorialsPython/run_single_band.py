@@ -1,4 +1,4 @@
-from pytriqs.gf.local import *
+from pytriqs.gf import *
 from pytriqs.operators import *
 from pytriqs.archive import *
 from pytriqs.applications.impurity_solvers.cthyb import Solver
