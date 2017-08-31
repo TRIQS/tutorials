@@ -14,7 +14,7 @@ int main() {
  auto Delta_tau = gf<imtime>{{beta, Fermion, 2 * n_freq + 1}, {1, 1}};
 
  auto bz = brillouin_zone{bravais_lattice{{{1, 0}, {0, 1}}}};
- auto bz_mesh = regular_bz_mesh{bz, n_pts};
+ auto bz_mesh = gf_mesh<brillouin_zone>{bz, n_pts};
 
  triqs::clef::placeholder<1> k_;
  triqs::clef::placeholder<2> iw_;
