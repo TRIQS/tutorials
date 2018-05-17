@@ -49,7 +49,7 @@ for patch in ['even','odd']:
 
 # Construct the impurity solver
 S = Solver(beta = beta,
-           gf_struct = {'even-up':[0], 'odd-up':[0], 'even-down':[0], 'odd-down':[0]}, n_l = 100)
+           gf_struct = [('even-up',[0]), ('odd-up',[0]), ('even-down',[0]), ('odd-down',[0])], n_l = 100)
 
 # The local lattice Green's function
 G = S.G0_iw.copy()
