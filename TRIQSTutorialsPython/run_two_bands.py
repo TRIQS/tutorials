@@ -1,7 +1,7 @@
 from pytriqs.gf import *
 from pytriqs.operators import *
 from pytriqs.archive import *
-from pytriqs.applications.impurity_solvers.cthyb import Solver
+from triqs_cthyb import Solver
 from itertools import product
 import numpy as np
 

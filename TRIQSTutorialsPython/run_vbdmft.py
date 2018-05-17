@@ -1,6 +1,6 @@
 from pytriqs.gf import *
 from pytriqs.operators import *
-from pytriqs.applications.impurity_solvers.cthyb import Solver
+from triqs_cthyb import Solver
 from pytriqs.archive import HDFArchive
 import pytriqs.utility.mpi as mpi
 import numpy as np
