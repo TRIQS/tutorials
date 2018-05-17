@@ -91,7 +91,7 @@ for doping, mu in mu_table.items():
                 n_cycles  = 200000,                      # Number of QMC cycles
                 length_cycle = 50,                       # Length of one cycle
                 n_warmup_cycles = 10000,                 # Warmup cycles
-                measure_g_l = True)                      # Measure G_l
+                measure_G_l = True)                      # Measure G_l
     
         if mpi.is_master_node():
             with HDFArchive("results_vbdmft/doping_%s.h5"%doping) as A:
