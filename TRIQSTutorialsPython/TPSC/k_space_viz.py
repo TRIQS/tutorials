@@ -19,8 +19,18 @@ from scipy.interpolate import NearestNDInterpolator
 # ----------------------------------------------------------------------
 def k_space_path(paths, num=100):
 
-    """ paths : list of tuples of pairs of 3-vectors of k-points to
-    make the path in between """
+    """ High symmetry path k-vector generator.
+
+    Input:
+    paths : list of tuples of pairs of 3-vectors of k-points to
+    make the path in between 
+    num (optional) : number of k-vectors along each segment of the path
+
+    Returns:
+    k_vecs: ndarray.shape = (n_k, 3) with all k-vectors. 
+    k_plot: ndarray.shape = (n_k) one dimensional vector for plotting
+    K_plot: ndarray.shape = (n_paths) positions of the start and end of each path 
+    """
 
     k_vecs = []
 
