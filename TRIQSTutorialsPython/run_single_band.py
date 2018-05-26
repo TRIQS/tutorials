@@ -1,7 +1,7 @@
-from pytriqs.gf.local import *
+from pytriqs.gf import *
 from pytriqs.operators import *
 from pytriqs.archive import *
-from pytriqs.applications.impurity_solvers.cthyb import Solver
+from triqs_cthyb import Solver
 import numpy as np
 
 import os
@@ -14,7 +14,7 @@ beta = 10.0
 n_loops = 10
 
 # Construct the impurity solver
-S = Solver(beta = beta, gf_struct = {'up':[0], 'down':[0]})
+S = Solver(beta = beta, gf_struct = [('up',[0]), ('down',[0])] )
 
 # I run for several values of U
 for U in np.arange(1.0, 13.0):

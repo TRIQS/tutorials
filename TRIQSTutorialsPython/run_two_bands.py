@@ -1,7 +1,7 @@
-from pytriqs.gf.local import *
+from pytriqs.gf import *
 from pytriqs.operators import *
 from pytriqs.archive import *
-from pytriqs.applications.impurity_solvers.cthyb import Solver
+from triqs_cthyb import Solver
 from itertools import product
 import numpy as np
 
@@ -17,7 +17,7 @@ filling = 'half' # or 'quarter'
 n_orbitals = 2
 
 # Construct the solver
-S = Solver(beta = beta, gf_struct = {'up-0':[0], 'up-1':[0], 'down-0':[0], 'down-1':[0]})
+S = Solver(beta = beta, gf_struct = [('up-0',[0]), ('up-1',[0]), ('down-0',[0]), ('down-1',[0])] )
 
 for coeff in [0.0, 0.1, 0.2]:
 

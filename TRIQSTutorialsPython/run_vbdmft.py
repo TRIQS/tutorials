@@ -1,6 +1,6 @@
-from pytriqs.gf.local import *
+from pytriqs.gf import *
 from pytriqs.operators import *
-from pytriqs.applications.impurity_solvers.cthyb import Solver
+from triqs_cthyb import Solver
 from pytriqs.archive import HDFArchive
 import pytriqs.utility.mpi as mpi
 import numpy as np
@@ -49,7 +49,7 @@ for patch in ['even','odd']:
 
 # Construct the impurity solver
 S = Solver(beta = beta,
-           gf_struct = {'even-up':[0], 'odd-up':[0], 'even-down':[0], 'odd-down':[0]}, n_l = 100)
+           gf_struct = [('even-up',[0]), ('odd-up',[0]), ('even-down',[0]), ('odd-down',[0])], n_l = 100)
 
 # The local lattice Green's function
 G = S.G0_iw.copy()
@@ -91,7 +91,7 @@ for doping, mu in mu_table.items():
                 n_cycles  = 200000,                      # Number of QMC cycles
                 length_cycle = 50,                       # Length of one cycle
                 n_warmup_cycles = 10000,                 # Warmup cycles
-                measure_g_l = True)                      # Measure G_l
+                measure_G_l = True)                      # Measure G_l
     
         if mpi.is_master_node():
             with HDFArchive("results_vbdmft/doping_%s.h5"%doping) as A:
