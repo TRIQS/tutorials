@@ -1,0 +1,3 @@
+[submodule "ctint_tutorial"]
+	path = ctint_tutorial
+	url = https://github.com/TRIQS/ctint_tutorial
