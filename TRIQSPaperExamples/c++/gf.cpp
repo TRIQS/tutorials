@@ -18,7 +18,7 @@ int main() {
 
  // Inverse Fourier transform to imaginary time
  auto g_tau = gf<imtime>{{beta, Fermion, 2 * n_freq + 1}, {1, 1}};
- g_tau() = inverse_fourier(g_iw); // Fills a full view of g_tau with FFT result
+ g_tau() = fourier(g_iw); // Fills a full view of g_tau with FFT result
 
  // Create a block Green's function composed of three blocks,
  // labeled a,b,c and made of copies of the g_iw functions.

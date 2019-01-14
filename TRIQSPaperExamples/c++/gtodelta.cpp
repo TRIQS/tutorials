@@ -22,7 +22,7 @@ int main() {
  // The actual equations
  Gloc(iw_) << sum(1 / (iw_ + mu - 2 * (cos(k_[0]) + cos(k_[1]))), k_ = bz_mesh) / bz_mesh.size(); // (3)
  Delta_iw(iw_) << iw_ + mu - 1 / Gloc(iw_);                                                       // (4)
- Delta_tau() = inverse_fourier(Delta_iw);                                                         // (5)
+ Delta_tau() = fourier(Delta_iw);                                                         	  // (5)
 
  // Write the hybridization to an HDF5 archive
  auto file = triqs::h5::file("Delta.h5", H5F_ACC_TRUNC);

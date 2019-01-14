@@ -1,41 +1,33 @@
 # Version number of the application
-set (EXAMPLES_VERSION "1.4")
+set(EXAMPLES_VERSION 2.0)
 
-# Append triqs installed files to the cmake load path
-list(APPEND CMAKE_MODULE_PATH ${TRIQS_PATH}/share/triqs/cmake)
+# Start configuration
+cmake_minimum_required(VERSION 2.8.12)
+project(app4triqs CXX)
 
-# start configuration 
-cmake_minimum_required(VERSION 2.8)
-project(examples CXX)
-set(CMAKE_BUILD_TYPE Release)
-enable_testing()
+# Default to Release build type
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Type of build" FORCE)
+endif()
+message( STATUS "-------- BUILD-TYPE: ${CMAKE_BUILD_TYPE} --------")
 
-# We use shared libraries
-option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+# Enable compiler warnings for the whole project
+add_definitions(-Wall)
 
 # Load TRIQS, including all predefined variables from TRIQS installation
-find_package(TRIQS REQUIRED)
+find_package(TRIQS 2.0 REQUIRED)
+find_package(Cpp2Py REQUIRED)
 
-# Check that versions are compatible
-if(NOT EXAMPLES_VERSION EQUAL TRIQS_VERSION)
-  message(FATAL_ERROR "The application version is not compatible with the TRIQS library (TRIQS library version: ${TRIQS_VERSION} while this application version: ${CTINT_VERSION})")
+# Default Install directory to TRIQS_ROOT if not given or invalid.
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT OR (NOT IS_ABSOLUTE ${CMAKE_INSTALL_PREFIX}))
+  message(STATUS "No install prefix given (or invalid). Defaulting to TRIQS_ROOT")
+  set(CMAKE_INSTALL_PREFIX ${TRIQS_ROOT} CACHE PATH "default install path" FORCE)
 endif()
+message(STATUS "-------- INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX} --------")
 
-# We want to be installed in the TRIQS tree
-set(CMAKE_INSTALL_PREFIX ${TRIQS_PATH})
-
-add_definitions(${TRIQS_CXX_DEFINITIONS})
-include_directories(${CMAKE_CURRENT_SOURCE_DIR} ${TRIQS_INCLUDE_ALL})
-
-if (${TRIQS_USE_CPP14})
 set(all_sources array gf gtodelta)
-else()
-set(all_sources array gtodelta)
-MESSAGE(WARNING "gf example only compiles with C++14 mode")
-endif()
-
 foreach(t ${all_sources})
 add_executable(${t} ${t}.cpp)
-target_link_libraries(${t} ${TRIQS_LIBRARY_ALL})
-triqs_set_rpath_for_target(${t})
+target_link_libraries(${t} triqs)
+target_compile_options(${t} PRIVATE -std=c++17)
 endforeach()
