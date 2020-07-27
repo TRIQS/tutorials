@@ -24,7 +24,7 @@ int main() {
  b(0, range(), range()) = ac; // Assign ac into partial view of b
 
  // Writing the array into an hdf5 file.
- auto f = triqs::h5::file("a_file.h5", H5F_ACC_TRUNC);
+ auto f = h5::file("a_file.h5", 'w');
  h5_write(f, "a", a);
 
  auto m = max_element(abs(b)); // maximum of the absolute value of the array.

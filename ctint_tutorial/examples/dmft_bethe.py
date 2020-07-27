@@ -1,8 +1,8 @@
-from pytriqs.gf import *
-from pytriqs.archive import *
-import pytriqs.utility.mpi as mpi
-from pytriqs.applications.impurity_solvers.ctint_tutorial import CtintSolver
-from pytriqs.plot.mpl_interface import oplot
+from triqs.gf import *
+from h5 import *
+import triqs.utility.mpi as mpi
+from triqs.applications.impurity_solvers.ctint_tutorial import CtintSolver
+from triqs.plot.mpl_interface import oplot
 
 # Parameters
 U = 2.5            # Hubbard interaction

@@ -1,6 +1,6 @@
-from pytriqs.gf import *
-from pytriqs.operators import *
-from pytriqs.archive import *
+from triqs.gf import *
+from triqs.operators import *
+from h5 import *
 from triqs_cthyb import Solver
 import numpy as np
 

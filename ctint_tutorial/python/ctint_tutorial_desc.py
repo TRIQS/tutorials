@@ -1,12 +1,12 @@
 # Generated automatically using the command :
-# c++2py ../c++/ctint.hpp -p -m pytriqs.applications.impurity_solvers.ctint_tutorial -o ctint_tutorial -C pytriqs --cxxflags="-std=c++17"
+# c++2py ../c++/ctint.hpp -p -m triqs.applications.impurity_solvers.ctint_tutorial -o ctint_tutorial -C triqs --cxxflags="-std=c++17"
 from cpp2py.wrap_generator import *
 
 # The module
-module = module_(full_name = "pytriqs.applications.impurity_solvers.ctint_tutorial", doc = "", app_name = "pytriqs.applications.impurity_solvers.ctint_tutorial")
+module = module_(full_name = "triqs.applications.impurity_solvers.ctint_tutorial", doc = "", app_name = "triqs.applications.impurity_solvers.ctint_tutorial")
 
 # Imports
-import pytriqs.gf
+import triqs.gf
 
 # Add here all includes
 module.add_include("ctint.hpp")

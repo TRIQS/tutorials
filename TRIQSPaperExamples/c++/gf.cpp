@@ -31,7 +31,7 @@ int main() {
  g_k_iw(k_, iw_) << 1 / (iw_ - 2 * (cos(k_(0)) + cos(k_(1))) - 1 / (iw_ + 2));
 
  // Writing the Green's functions into an HDF5 file.
- auto f = h5::file("file_g_k_iw.h5", H5F_ACC_TRUNC);
+ auto f = h5::file("file_g_k_iw.h5", 'w');
  h5_write(f, "g_k_iw", g_k_iw);
  h5_write(f, "g_iw", g_iw);
  h5_write(f, "g_tau", g_tau);

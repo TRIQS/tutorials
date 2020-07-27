@@ -25,7 +25,7 @@ int main() {
  Delta_tau() = fourier(Delta_iw);                                                         	  // (5)
 
  // Write the hybridization to an HDF5 archive
- auto file = triqs::h5::file("Delta.h5", H5F_ACC_TRUNC);
+ auto file = h5::file("Delta.h5", 'w');
  h5_write(file, "Delta_tau", Delta_tau);
  h5_write(file, "Delta_iw", Delta_iw);
 }

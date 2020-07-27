@@ -1,8 +1,8 @@
-from pytriqs.gf import *
-from pytriqs.archive import *
+from triqs.gf import *
+from h5 import *
 from numpy import zeros
-import pytriqs.utility.mpi as mpi
-from pytriqs.utility.h5diff import h5diff
+import triqs.utility.mpi as mpi
+from triqs.utility.h5diff import h5diff
 
 from ctint_tutorial import CtintSolver
 

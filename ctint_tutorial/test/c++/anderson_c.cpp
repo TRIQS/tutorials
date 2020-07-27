@@ -36,12 +36,12 @@ TEST(CtInt, Anderson) {
   std::string filename = "anderson_c";
   gf<imfreq> g;
   if (rank == 0) {
-    triqs::h5::file G_file(filename + ".ref.h5", 'r');
+    h5::file G_file(filename + ".ref.h5", 'r');
     h5_read(G_file, "G", g);
     EXPECT_GF_NEAR(g, ctqmc.G_iw()[0]);
   }
   if (rank == 0) {
-    triqs::h5::file G_file(filename + ".out.h5", 'w');
+    h5::file G_file(filename + ".out.h5", 'w');
     h5_write(G_file, "G", ctqmc.G_iw()[0]);
   }
 }

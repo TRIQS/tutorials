@@ -1,8 +1,8 @@
-from pytriqs.gf import *
-from pytriqs.operators import *
+from triqs.gf import *
+from triqs.operators import *
 from triqs_cthyb import Solver
-from pytriqs.archive import HDFArchive
-import pytriqs.utility.mpi as mpi
+from h5 import HDFArchive
+import triqs.utility.mpi as mpi
 import numpy as np
 
 import os
