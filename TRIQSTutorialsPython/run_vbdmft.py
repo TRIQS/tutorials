@@ -66,7 +66,7 @@ for spin in ['up','down']:
 h_loc = U * (nn['1-up'] * nn['1-down'] + nn['2-up'] * nn['2-down'])
 
 # Run for several dopings
-for doping, mu in mu_table.items():
+for doping, mu in list(mu_table.items()):
 
     # Initial guess
     S.Sigma_iw << mu

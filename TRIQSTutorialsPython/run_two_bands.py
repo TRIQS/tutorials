@@ -36,14 +36,14 @@ for coeff in [0.0, 0.1, 0.2]:
         h_int = Operator()
         for o in range(0,n_orbitals):
             h_int += U*n('up-%s'%o,0)*n('down-%s'%o,0)
-        for o1,o2 in product(range(0,n_orbitals),range(0,n_orbitals)):
+        for o1,o2 in product(list(range(0,n_orbitals)),list(range(0,n_orbitals))):
             if o1==o2: continue
             h_int += (U-2*J)*n('up-%s'%o1,0)*n('down-%s'%o2,0)
-        for o1,o2 in product(range(0,n_orbitals),range(0,n_orbitals)):
+        for o1,o2 in product(list(range(0,n_orbitals)),list(range(0,n_orbitals))):
             if o2>=o1: continue;
             h_int += (U-3*J)*n('up-%s'%o1,0)*n('up-%s'%o2,0)
             h_int += (U-3*J)*n('down-%s'%o1,0)*n('down-%s'%o2,0)
-        for o1,o2 in product(range(0,n_orbitals),range(0,n_orbitals)):
+        for o1,o2 in product(list(range(0,n_orbitals)),list(range(0,n_orbitals))):
             if o1==o2: continue
             h_int += -J*c_dag('up-%s'%o1,0)*c_dag('down-%s'%o1,0)*c('up-%s'%o2,0)*c('down-%s'%o2,0)
             h_int += -J*c_dag('up-%s'%o1,0)*c_dag('down-%s'%o2,0)*c('up-%s'%o2,0)*c('down-%s'%o1,0)
@@ -54,7 +54,7 @@ for coeff in [0.0, 0.1, 0.2]:
         # DMFT loop with self-consistency
         for i in range(n_loops):
 
-            print "\n\nIteration = %i / %i" % (i+1, n_loops)
+            print("\n\nIteration = %i / %i" % (i+1, n_loops))
 
             # Symmetrize the Green's function and use self-consistency
             if i > 0:
@@ -70,7 +70,7 @@ for coeff in [0.0, 0.1, 0.2]:
 
             # Check density
             for name, g in S.G_iw:
-                print name, ": ",g.density()[0,0].real
+                print(name, ": ",g.density()[0,0].real)
 
             # Save iteration in archive
             with HDFArchive("results_two_bands/%s-U%.2f-J%.2f.h5"%(filling,U,J)) as A:

@@ -58,7 +58,7 @@ class HubbardModel(object):
         self.kmin = -np.pi*np.ones(self.dims)
         self.kmax =  np.pi*np.ones(self.dims)
         if parms:
-            print("warning: Unused parameters:", parms.keys())
+            print(("warning: Unused parameters:", list(parms.keys())))
     
     def __repr__(self):
         return "HubbardModel(%s)" % repr(self.parms())

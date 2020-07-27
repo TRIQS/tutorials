@@ -3,5 +3,5 @@ def application_triqs_import(name,*args,**kwargs):
     name = name[len('@package_name@')+1:]
   return builtin_import(name,*args,**kwargs)
 
-import __builtin__
-__builtin__.__import__, builtin_import = application_triqs_import, __builtin__.__import__
+import builtins
+builtins.__import__, builtin_import = application_triqs_import, builtins.__import__

@@ -79,7 +79,7 @@ def get_k_components_from_k_vec(k_vec, nk):
     # -- cut out values for each axis
     
     k_out = []
-    for axis in xrange(dim):
+    for axis in range(dim):
         cut = [0]*dim
         cut[axis] = slice(None)
         cut = [axis] + cut
