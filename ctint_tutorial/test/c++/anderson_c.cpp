@@ -31,7 +31,7 @@ TEST(CtInt, Anderson) {
 
   // to compare with ct_seg
   // gf<imfreq> gw = ctqmc.G0_iw()[0];
-  // auto gt = make_gf_from_inverse_fourier(gw);
+  // auto gt = make_gf_from_fourier(gw);
 
   std::string filename = "anderson_c";
   gf<imfreq> g;
