@@ -14,7 +14,7 @@ beta = 10.0
 n_loops = 10
 
 # Construct the impurity solver
-S = Solver(beta = beta, gf_struct = [('up',[0]), ('down',[0])] )
+S = Solver(beta = beta, gf_struct = [('up',1), ('down',1)] )
 
 # I run for several values of U
 for U in np.arange(1.0, 13.0):
