@@ -1,0 +1,4 @@
+hwloc/linux: Ignoring PCI device with non-16bit domain.
+Pass --enable-32bits-pci-domain to configure to support such devices
+(warning: it would break the library ABI, don't enable unless really needed).
+Starting run with 16 MPI rank(s) at : 2022-05-01 12:44:22.632149
