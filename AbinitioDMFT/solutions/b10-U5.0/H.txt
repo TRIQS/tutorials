@@ -1,0 +1,6 @@
+Kanamori Hamiltonian:
+Density-density terms:
+('up_0', 0)	('down_0', 0)	5.0
+('down_0', 0)	('up_0', 0)	5.0
+Spin-flip terms:
+Pair-hopping terms:
