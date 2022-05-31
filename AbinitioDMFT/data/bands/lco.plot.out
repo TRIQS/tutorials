@@ -1,0 +1,9 @@
+     Input file > Reading   40 bands at    201 k-points
+List of atomic wavefunctions: Range:  -99.7140   16.1200eV  Emin, Emax, [firstk, lastk] > high-symmetry point:  0.0000 0.0000 0.0000   x coordinate   0.0000
+high-symmetry point:  0.9342-0.0000 0.2701   x coordinate   0.9724
+high-symmetry point:  0.9342 0.9342-0.0000   x coordinate   1.9448
+high-symmetry point:  0.0000 0.0000 0.0000   x coordinate   3.2659
+high-symmetry point:  0.0000 0.0000 0.2701   x coordinate   3.5360
+output file (gnuplot/xmgr) > bands in gnuplot/xmgr format written to file lco.bands                                                                                                                                                                                                                                                       
+output file (ps) > Efermi > deltaE, reference E (for tics) bands in PostScript format written to file lco.bands.ps                                                                                                                                                                                                                                                    
+output file for projected band (gnuplot script) > 

@@ -1,0 +1,16 @@
+Seedname:
+lco
+
+Reading input from lco.inp...
+Total number of WFs expected in the correlated shells: 1
+Number of inequivalent shells: 1
+Shell representatives: [0]
+Mapping: [0]
+
+The Hamiltonian in MLWF basis is extracted from lco files...
+reading lco_hr.dat          ... written on  1May2022 at 12:42:53 
+
+... done: 397 R vectors, 1 WFs found
+Number of WFs equal to number of correlated orbitals
+The k-point grid has dimensions: 7, 7, 7
+Subtracting 0.00000 eV from the Fermi level.

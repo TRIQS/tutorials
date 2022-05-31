@@ -1,0 +1,54 @@
+
+     Program BANDS v.7.0 starts on  3May2022 at 13:50:57 
+        Git branch: HEAD
+        Last git commit: bcbb9787c58f17a467653707917172ffc4053dd9
+        Last git commit date: Tue Dec 21 10:27:04 2021 +0000
+        Last git commit subject: Merge branch pw2gt_cmplx into develop         
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on    16 processors
+
+     MPI processes distributed on     1 nodes
+     K-points division:     npool     =      16
+     103802 MiB available memory on the printing compute node when the environment starts
+
+
+     Reading xml data from directory:
+
+     /mnt/ceph/users/sbeck/QE_tmp/lco.save/
+
+     IMPORTANT: XC functional enforced from input :
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+     Any further DFT definition will be discarded
+     Please, verify this is what you really want
+
+
+     G-vector sticks info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Sum        6687    2223    643               185911    35659    5615
+
+     Using Slab Decomposition
+
+
+     Check: negative core charge=   -0.000001
+
+     negative rho (up, down):  1.020E-01 0.000E+00
+     Reading collected, re-writing distributed wavefunctions
+     high-symmetry point:  0.0000 0.0000 0.0000   x coordinate   0.0000
+     high-symmetry point:  0.0000 0.9342-0.0000   x coordinate   0.9342
+     high-symmetry point:  0.9342 0.9342-0.0000   x coordinate   1.8683
+     high-symmetry point:  0.0000 0.0000 0.0000   x coordinate   3.1894
+     high-symmetry point:  0.0000 0.0000 0.2701   x coordinate   3.4595
+
+     Plottable bands (eV) written to file lco_bands.dat.gnu
+     Bands written to file lco_bands.dat
