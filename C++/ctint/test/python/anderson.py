@@ -1,8 +1,9 @@
-from triqs.gf import *
 from h5 import *
-from numpy import zeros
-import triqs.utility.mpi as mpi
+from triqs.gf import *
 from triqs.utility.h5diff import h5diff
+import triqs.utility.mpi as mpi
+
+from numpy import zeros
 
 from ctint_tutorial import CtintSolver
 
@@ -27,5 +28,4 @@ if mpi.is_master_node():
   A['G'] = S.G_iw['up']
 
 # -------- Compare ---------
-# Not present
-# h5diff("anderson.out.h5", "anderson.ref.h5")
+h5diff("anderson.out.h5", "anderson.ref.h5")

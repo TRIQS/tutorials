@@ -1,13 +1,12 @@
 #include "ctint.hpp"
-#include <triqs/gfs.hpp>
-#include <triqs/mesh.hpp>
+
 #include <triqs/test_tools/gfs.hpp>
 
 // Anderson model test
 TEST(CtInt, Anderson) {
 
   // Initialize mpi
-  int rank = triqs::mpi::communicator().rank();
+  int rank = mpi::communicator().rank();
 
   // set parameters
   double beta  = 20.0;
@@ -30,20 +29,15 @@ TEST(CtInt, Anderson) {
   // launch the Monte Carlo
   ctqmc.solve(U, delta, n_cycles);
 
-  // to compare with ct_seg
-  // gf<imfreq> gw = ctqmc.G0_iw()[0];
-  // auto gt = make_gf_from_fourier(gw);
-
   std::string filename = "anderson_c";
-  gf<imfreq> g;
+  gf<imfreq> g_ref;
   if (rank == 0) {
-    h5::file G_file(filename + ".ref.h5", 'r');
-    h5_read(G_file, "G", g);
-    EXPECT_GF_NEAR(g, ctqmc.G_iw()[0]);
-  }
-  if (rank == 0) {
-    h5::file G_file(filename + ".out.h5", 'w');
-    h5_write(G_file, "G", ctqmc.G_iw()[0]);
+    h5::file f_out(filename + ".out.h5", 'w');
+    h5_write(f_out, "G", ctqmc.G_iw()[0]);
+
+    h5::file f_ref(filename + ".ref.h5", 'r');
+    h5_read(f_ref, "G", g_ref);
+    EXPECT_GF_NEAR(g_ref, ctqmc.G_iw()[0]);
   }
 }
 MAKE_MAIN;

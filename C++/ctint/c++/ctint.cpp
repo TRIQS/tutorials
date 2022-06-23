@@ -1,7 +1,9 @@
 #include "ctint.hpp"
+
+#include <mpi/mpi.hpp>
+
 #include <triqs/mc_tools.hpp>
 #include <triqs/det_manip.hpp>
-#include <boost/serialization/complex.hpp>
 
 // --------------- The QMC configuration ----------------
 
@@ -113,7 +115,7 @@ struct measure_M {
       // A lambda to measure the M-matrix in frequency
       auto lambda = [this, spin, sign](arg_t const &x, arg_t const &y, dcomplex M) {
         auto const &mesh = this->Mw[spin].mesh();
-        auto phase_step  = -1_j * M_PI * (x.tau - y.tau) / beta;
+        auto phase_step  = -1i * M_PI * (x.tau - y.tau) / beta;
         auto coeff       = std::exp((2 * mesh.first_index() + 1) * phase_step);
         auto fact        = std::exp(2 * phase_step);
         for (auto const &om : mesh) {
@@ -122,13 +124,14 @@ struct measure_M {
         }
       };
 
-      foreach (config->Mmatrices[spin], lambda);
+      foreach (config->Mmatrices[spin], lambda)
+        ;
     }
   }
 
-  void collect_results(triqs::mpi::communicator const &c) {
-    Mw = triqs::mpi::mpi_all_reduce(Mw, c);
-    Z  = triqs::mpi::mpi_all_reduce(Z, c);
+  void collect_results(mpi::communicator const &c) {
+    Mw = mpi::all_reduce(Mw, c);
+    Z  = mpi::all_reduce(Z, c);
     Mw = Mw / (-Z * beta);
 
     // Print the sign
@@ -180,7 +183,7 @@ void ctint_solver::solve(double U, double delta, int n_cycles, int length_cycle,
   CTQMC.collect_results(world);
 
   // Compute the Green function from Mw
-  g_iw[spin_](om_) << g0tilde_iw[spin_](om_)  + g0tilde_iw[spin_](om_) * M_iw[spin_](om_) * g0tilde_iw[spin_](om_);
+  g_iw[spin_](om_) << g0tilde_iw[spin_](om_) + g0tilde_iw[spin_](om_) * M_iw[spin_](om_) * g0tilde_iw[spin_](om_);
 
   // Set the tail of g_iw to 1/w
   nda::array<dcomplex, 3> mom{{{0}}, {{1}}}; // 0 + 1/omega

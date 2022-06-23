@@ -5,7 +5,7 @@
 
 using namespace triqs::gfs;
 using namespace nda;
-namespace mpi = triqs::mpi;
+
 enum spin { up, down };
 
 class ctint_solver {
