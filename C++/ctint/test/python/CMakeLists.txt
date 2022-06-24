@@ -5,7 +5,7 @@ file(COPY ${all_h5_files} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 set(all_tests anderson)
 
 foreach(t ${all_tests})
-  add_test(NAME ${t} COMMAND python ${CMAKE_CURRENT_SOURCE_DIR}/${t}.py)
+  add_test(NAME ${t} COMMAND ${TRIQS_PYTHON_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/${t}.py)
 endforeach()
 
 # Set the PythonPath 
