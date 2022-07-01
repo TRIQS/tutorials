@@ -7,10 +7,14 @@
 
 // --------------- The QMC configuration ----------------
 
-// Argument type of g0bar
-struct arg_t {
-  double tau; // The imaginary time
-  int s;      // The auxiliary spin
+// Operator types
+struct c_t {
+  double tau; // Imaginary time
+  int s;      // Auxiliary spin
+};
+struct cdag_t {
+  double tau;
+  int s;
 };
 
 // The function that appears in the calculation of the determinant
@@ -19,15 +23,15 @@ struct g0bar_tau {
   double beta, delta;
   int s;
 
-  dcomplex operator()(arg_t const &x, arg_t const &y) const {
-    if ((x.tau == y.tau)) { // G_\sigma(0^-) - \alpha(\sigma s)
-      return 1.0 + gt[0](0, 0) - (0.5 + (2 * (s == x.s ? 1 : 0) - 1) * delta);
+  dcomplex operator()(c_t const &c, cdag_t const &cdag) const {
+    if ((c.tau == cdag.tau)) { // G_\sigma(0^-) - \alpha(\sigma s)
+      return 1.0 + gt[0](0,0) - (0.5 + (s == c.s ? 1 : -1) * delta);
     }
-    auto x_y = x.tau - y.tau;
-    bool b   = (x_y >= 0);
-    if (!b) x_y += beta;
-    dcomplex res = gt[closest_mesh_pt(x_y)](0, 0);
-    return (b ? res : -res); // take into account antiperiodicity
+    auto tau = c.tau - cdag.tau;
+    if (tau >= 0)
+      return gt[closest_mesh_pt(tau)](0, 0);
+    else // tau < 0, Account for anti-periodicity
+      return -gt[closest_mesh_pt(tau+beta)](0, 0);
   }
 };
 
@@ -113,9 +117,9 @@ struct measure_M {
     for (auto spin : {up, down}) {
 
       // A lambda to measure the M-matrix in frequency
-      auto lambda = [this, spin, sign](arg_t const &x, arg_t const &y, dcomplex M) {
+      auto lambda = [this, spin, sign](c_t const &c, cdag_t const &cdag, dcomplex M) {
         auto const &mesh = this->Mw[spin].mesh();
-        auto phase_step  = -1i * M_PI * (x.tau - y.tau) / beta;
+        auto phase_step  = -1i * M_PI * (c.tau - cdag.tau) / beta;
         auto coeff       = std::exp((2 * mesh.first_index() + 1) * phase_step);
         auto fact        = std::exp(2 * phase_step);
         for (auto const &om : mesh) {
@@ -154,10 +158,10 @@ ctint_solver::ctint_solver(double beta_, int n_iw, int n_tau) : beta(beta_) {
 void ctint_solver::solve(double U, double delta, int n_cycles, int length_cycle, int n_warmup_cycles, std::string random_name, int max_time) {
 
   mpi::communicator world;
-  nda::clef::placeholder<0> spin_;
-  nda::clef::placeholder<1> om_;
 
-  for (auto spin : {up, down}) { // Apply shift to g0_iw and Fourier transform
+  // Apply shift to g0_iw and Fourier transform
+  nda::clef::placeholder<1> om_;
+  for (auto spin : {up, down}) {
     g0tilde_iw[spin](om_) << 1.0 / (1.0 / g0_iw[spin](om_) - U / 2);
     array<dcomplex, 3> mom{{{0}}, {{1}}}; // Fix the moments: 0 + 1/omega
     g0tilde_tau()[spin] = triqs::gfs::fourier(g0tilde_iw[spin], make_const_view(mom));
@@ -183,5 +187,5 @@ void ctint_solver::solve(double U, double delta, int n_cycles, int length_cycle,
   CTQMC.collect_results(world);
 
   // Compute the Green function from Mw
-  g_iw[spin_](om_) << g0tilde_iw[spin_](om_) + g0tilde_iw[spin_](om_) * M_iw[spin_](om_) * g0tilde_iw[spin_](om_);
+  g_iw = g0tilde_iw + g0tilde_iw * M_iw * g0tilde_iw;
 }
