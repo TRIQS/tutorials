@@ -184,8 +184,4 @@ void ctint_solver::solve(double U, double delta, int n_cycles, int length_cycle,
 
   // Compute the Green function from Mw
   g_iw[spin_](om_) << g0tilde_iw[spin_](om_) + g0tilde_iw[spin_](om_) * M_iw[spin_](om_) * g0tilde_iw[spin_](om_);
-
-  // Set the tail of g_iw to 1/w
-  nda::array<dcomplex, 3> mom{{{0}}, {{1}}}; // 0 + 1/omega
-  for (auto &g : g_iw) replace_by_tail_in_fit_window(g(), make_const_view(mom));
 }
