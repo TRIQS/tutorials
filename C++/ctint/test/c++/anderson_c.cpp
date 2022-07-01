@@ -30,7 +30,7 @@ TEST(CtInt, Anderson) {
   ctqmc.solve(U, delta, n_cycles);
 
   std::string filename = "anderson_c";
-  gf<imfreq> g_ref;
+  gf<imfreq, scalar_valued> g_ref;
   if (rank == 0) {
     h5::file f_out(filename + ".out.h5", 'w');
     h5_write(f_out, "G", ctqmc.G_iw()[0]);

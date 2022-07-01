@@ -19,19 +19,19 @@ struct cdag_t {
 
 // The function that appears in the calculation of the determinant
 struct g0bar_tau {
-  gf<imtime> const &gt;
+  gf<imtime, scalar_valued> const &gt;
   double beta, delta;
   int s;
 
   dcomplex operator()(c_t const &c, cdag_t const &cdag) const {
     if ((c.tau == cdag.tau)) { // G_\sigma(0^-) - \alpha(\sigma s)
-      return 1.0 + gt[0](0,0) - (0.5 + (s == c.s ? 1 : -1) * delta);
+      return 1.0 + gt[0] - (0.5 + (s == c.s ? 1 : -1) * delta);
     }
     auto tau = c.tau - cdag.tau;
     if (tau >= 0)
-      return gt[closest_mesh_pt(tau)](0, 0);
+      return gt[closest_mesh_pt(tau)];
     else // tau < 0, Account for anti-periodicity
-      return -gt[closest_mesh_pt(tau+beta)](0, 0);
+      return -gt[closest_mesh_pt(tau + beta)];
   }
 };
 
@@ -42,7 +42,7 @@ struct configuration {
 
   int perturbation_order() const { return Mmatrices[up].size(); }
 
-  configuration(block_gf<imtime> &g0tilde_tau, double beta, double delta) {
+  configuration(block_gf<imtime, scalar_valued> &g0tilde_tau, double beta, double delta) {
     // Initialize the M-matrices. 100 is the initial matrix size
     for (auto spin : {up, down}) Mmatrices.emplace_back(g0bar_tau{g0tilde_tau[spin], beta, delta, spin}, 100);
   }
@@ -102,13 +102,13 @@ struct move_remove {
 
 struct measure_M {
 
-  configuration const *config; // Pointer to the MC configuration
-  block_gf<imfreq> &Mw;        // reference to M-matrix
+  configuration const *config;         // Pointer to the MC configuration
+  block_gf<imfreq, scalar_valued> &Mw; // reference to M-matrix
   double beta;
   dcomplex Z = 0;
   long count = 0;
 
-  measure_M(configuration const *config_, block_gf<imfreq> &Mw_, double beta_) : config(config_), Mw(Mw_), beta(beta_) { Mw() = 0; }
+  measure_M(configuration const *config_, block_gf<imfreq, scalar_valued> &Mw_, double beta_) : config(config_), Mw(Mw_), beta(beta_) { Mw() = 0; }
 
   void accumulate(dcomplex sign) {
     Z += sign;
@@ -123,7 +123,7 @@ struct measure_M {
         auto coeff       = std::exp((2 * mesh.first_index() + 1) * phase_step);
         auto fact        = std::exp(2 * phase_step);
         for (auto const &om : mesh) {
-          this->Mw[spin][om](0, 0) += sign * M * coeff;
+          this->Mw[spin][om] += sign * M * coeff;
           coeff *= fact;
         }
       };
@@ -147,8 +147,8 @@ struct measure_M {
 
 ctint_solver::ctint_solver(double beta_, int n_iw, int n_tau) : beta(beta_) {
 
-  g0_iw       = make_block_gf({"up", "down"}, gf<imfreq>{{beta, Fermion, n_iw}, {1, 1}});
-  g0tilde_tau = make_block_gf({"up", "down"}, gf<imtime>{{beta, Fermion, n_tau}, {1, 1}});
+  g0_iw       = make_block_gf({"up", "down"}, gf<imfreq, scalar_valued>{{beta, Fermion, n_iw}, {}});
+  g0tilde_tau = make_block_gf({"up", "down"}, gf<imtime, scalar_valued>{{beta, Fermion, n_tau}, {}});
   g0tilde_iw  = g0_iw;
   g_iw        = g0_iw;
   M_iw        = g0_iw;
@@ -163,7 +163,7 @@ void ctint_solver::solve(double U, double delta, int n_cycles, int length_cycle,
   nda::clef::placeholder<1> om_;
   for (auto spin : {up, down}) {
     g0tilde_iw[spin](om_) << 1.0 / (1.0 / g0_iw[spin](om_) - U / 2);
-    array<dcomplex, 3> mom{{{0}}, {{1}}}; // Fix the moments: 0 + 1/omega
+    array<dcomplex, 1> mom{0, 1}; // Fix the moments: 0 + 1/omega
     g0tilde_tau()[spin] = triqs::gfs::fourier(g0tilde_iw[spin], make_const_view(mom));
   }
 
