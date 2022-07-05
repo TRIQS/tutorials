@@ -9,21 +9,13 @@ using namespace nda;
 enum spin { up, down };
 
 class ctint_solver {
-
-  block_gf<imfreq, scalar_valued> g0_iw, g0tilde_iw, g_iw, M_iw;
-  block_gf<imtime, scalar_valued> g0tilde_tau;
   double beta;
   int n_matsubara, n_times_slices;
 
   public:
-  /// Access non-interacting Matsubara Green function
-  block_gf_view<imfreq, scalar_valued> G0_iw() { return g0_iw; }
-
-  /// Access non-interacting imaginary-time Green function
-  block_gf_view<imtime, scalar_valued> G0_tau() { return g0tilde_tau; }
-
-  /// Access interacting Matsubara Green function
-  block_gf_view<imfreq, scalar_valued> G_iw() { return g_iw; }
+  block_gf<imfreq, scalar_valued> G0_iw, G0tilde_iw, G_iw, M_iw;
+  block_gf<imtime, scalar_valued> G0tilde_tau, M_tau;
+  nda::array<dcomplex, 1> M_hatree = nda::zeros<dcomplex>(2);
 
   /// Construct a ctint solver
   ctint_solver(double beta_, int n_iw = 1024, int n_tau = 100001);
