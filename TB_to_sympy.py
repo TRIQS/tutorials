@@ -2,7 +2,6 @@
 from itertools import product as itp
 from pythtb import *
 from triqs.lattice.tight_binding import TBLattice
-import sympy as sp
 import warnings
 import numpy as np
 import matplotlib.pyplot as plt
@@ -35,6 +34,8 @@ def TB_to_sympy(w90_triqs, analytical = True, precision = 6):
 
     """
 
+    import sympy as sp
+    
     # imaginary number
     I = sp.I
 
