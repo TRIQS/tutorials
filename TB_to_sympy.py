@@ -6,14 +6,14 @@ import warnings
 import numpy as np
 import matplotlib.pyplot as plt
 
-def TB_to_sympy(w90_triqs, analytical = True, precision = 6):
+def TB_to_sympy(TBL, analytical = True, precision = 6):
     r"""
     returns the analytical form of the momentum space hamiltonian of the tight-binding model 
     from a tight-binding lattice object by utilizing Fourier series
     
     Parameters
     ----------
-    w90_triqs: triqs TBLattice object
+    TBL: triqs TBLattice object
         triqs tight binding object
     analytical: boolean, default = True
         a boolean which will cause the function will return an analytical Hamiltonian, when true, and 
@@ -48,15 +48,25 @@ def TB_to_sympy(w90_triqs, analytical = True, precision = 6):
     a1k, a2k, a3k = sp.symbols("a1k a2k a3k", real = True)
     lattice = sp.Matrix([a1k, a2k, a3k])
 
+    # units contains the displacement vectors
+    # hops contains details about hopping of electrons such as orbital
+    # and hopping amplitude
+    if TBL.units.shape == (2, 2):
+        TBL_units = np.eye(3)
+        TBL_units[:2, :2] = TBL.units
+        TBL_hops = {key + (0,): val for key, val in TBL.hoppings.items()}
+    elif TBL.units.shape == (3,3):
+        TBL_units = TBL.units
+        TBL_hops = TBL.hoppings
+    # raises error for when the dimensions of the tb object is neither 2D nor 3D
+    else:
+        raise ValueError("This format of the tight-binding model is not implemented for this function.")
+   
     # number of orbitals involved in the unit cell
-    num_orb = w90_triqs.n_orbitals
-
-    # dictionary containing details about hopping of electrons such as
-    # orbital and hopping amplitude info
-    TB_lat_obj_hops = w90_triqs.hoppings
+    num_orb = TBL.n_orbitals
 
     # maximum hopping distances of electrons in each direction
-    max_x, max_y, max_z = list(np.max(np.array(list(TB_lat_obj_hops.keys())), axis = 0))
+    max_x, max_y, max_z = list(np.max(np.array(list(TBL_hops.keys())), axis = 0))
 
     # number of cells involved in the hopping of electrons in each direction
     num_cells_x, num_cells_y, num_cells_z = [2 * max_coord + 1 for max_coord in [max_x, max_y, max_z]]
@@ -65,7 +75,7 @@ def TB_to_sympy(w90_triqs, analytical = True, precision = 6):
     Hrij = np.zeros((num_cells_x, num_cells_y, num_cells_z, num_orb, num_orb), dtype = sp.exp)
 
     # looping through hopping parameters of electrons involved in inter-orbital hoppings
-    for key, hopping in TB_lat_obj_hops.items():
+    for key, hopping in TBL_hops.items():
         rx, ry, rz = key
         hopping = np.around(hopping, precision)
         Hrij[rx + max_x, ry + max_y, rz + max_z] = hopping
@@ -92,13 +102,10 @@ def TB_to_sympy(w90_triqs, analytical = True, precision = 6):
     # convert to SymPy matrix to use substitutions method available in SymPy
     Hk_numerical = sp.Matrix(Hk)
 
-    # matrix containing displacement vectors
-    TB_lat_obj_units = w90_triqs.units
-
     # obtaining individual displacement vectors
-    a1 = np.around(TB_lat_obj_units[0], precision)
-    a2 = np.around(TB_lat_obj_units[1], precision)
-    a3 = np.around(TB_lat_obj_units[2], precision)
+    a1 = np.around(TBL_units[0], precision)
+    a2 = np.around(TBL_units[1], precision)
+    a3 = np.around(TBL_units[2], precision)
 
     # numerical dot products between unit vectors
     # and momentum space matrix
