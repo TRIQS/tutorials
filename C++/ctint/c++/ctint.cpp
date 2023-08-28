@@ -209,6 +209,6 @@ void ctint_solver::solve(double U, double delta, int n_cycles, int length_cycle,
   M_iw = make_hermitian(M_iw);
   for (auto s: {up, down}) M_iw[s](iw_) << M_iw[s](iw_) + M_hatree[s];
 
-  // Compute the Green function from M_iw
+  // Compute the Green's function from M_iw
   G_iw = G0tilde_iw + G0tilde_iw * M_iw * G0tilde_iw;
 }
