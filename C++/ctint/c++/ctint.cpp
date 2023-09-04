@@ -164,8 +164,8 @@ struct measure_M {
 
 ctint_solver::ctint_solver(double beta_, int n_iw, int n_tau) : beta(beta_) {
 
-  G0_iw       = make_block_gf({"up", "down"}, gf<imfreq, scalar_valued>{{beta, Fermion, n_iw}, {}});
-  G0tilde_tau = make_block_gf({"up", "down"}, gf<imtime, scalar_valued>{{beta, Fermion, n_tau}, {}});
+  G0_iw       = make_block_gf({"up", "down"}, gf<imfreq, scalar_valued>{{beta, Fermion, n_iw}});
+  G0tilde_tau = make_block_gf({"up", "down"}, gf<imtime, scalar_valued>{{beta, Fermion, n_tau}});
   G0tilde_iw  = G0_iw;
   G_iw        = G0_iw;
   M_iw        = G0_iw;
