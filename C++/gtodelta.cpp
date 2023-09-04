@@ -3,6 +3,7 @@
 
 using namespace triqs::gfs;
 using namespace triqs::lattice;
+namespace mesh = triqs::mesh;
 
 int main() {
 
