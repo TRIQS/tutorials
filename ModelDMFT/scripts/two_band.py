@@ -6,8 +6,8 @@ from itertools import product
 import numpy as np
 
 import os
-if not os.path.exists('data/two_bands'):
-    os.makedirs('data/two_bands')
+if not os.path.exists('data/two_band'):
+    os.makedirs('data/two_band')
 
 # Parameters of the model
 t = 1.0
@@ -73,6 +73,6 @@ for coeff in [0.0, 0.1, 0.2]:
                 print(name, ": ",g.density()[0,0].real)
 
             # Save iteration in archive
-            with HDFArchive("data/two_bands/%s-U%.2f-J%.2f.h5"%(filling,U,J)) as A:
+            with HDFArchive("data/two_band/%s-U%.2f-J%.2f.h5"%(filling,U,J)) as A:
                 A['G-%i'%i] = S.G_iw
                 A['Sigma-%i'%i] = S.Sigma_iw
