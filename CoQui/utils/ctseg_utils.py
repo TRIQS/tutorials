@@ -2,11 +2,11 @@ import triqs.utility.mpi as mpi
 import numpy as np
 from itertools import product
 
-from triqs.gf import (iOmega_n, MeshImFreq, Gf, BlockGf, make_gf_imfreq, make_gf_imtime, 
+from triqs.gfs import (iOmega_n, MeshImFreq, Gf, BlockGf, make_gf_imfreq, make_gf_imtime, 
                       make_gf_from_fourier, Idx, make_hermitian, is_gf_hermitian)
-from triqs.gf.gf_fnt import fit_hermitian_tail_on_window, replace_by_tail
-from triqs.gf.tools import inverse, make_zero_tail
-from triqs.gf.descriptors import Fourier
+from triqs.gfs.gf_fnt import fit_hermitian_tail_on_window, replace_by_tail
+from triqs.gfs.tools import inverse, make_zero_tail
+from triqs.gfs.descriptors import Fourier
 from triqs.operators.util.extractors import block_matrix_from_op
 from triqs.operators.util.U_matrix import reduce_4index_to_2index
 

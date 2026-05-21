@@ -1,4 +1,4 @@
-from triqs.gf import *
+from triqs.gfs import *
 from h5 import *
 import triqs.utility.mpi as mpi
 from triqs.applications.impurity_solvers.ctint_tutorial import CtintSolver

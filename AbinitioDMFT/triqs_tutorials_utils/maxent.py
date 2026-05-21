@@ -1,6 +1,6 @@
 from triqs_maxent import PoormanMaxEnt, LogAlphaMesh, HyperbolicOmegaMesh
 from triqs_maxent import InversionSigmaContinuator
-from triqs.gf import MeshImFreq, MeshImTime
+from triqs.gfs import MeshImFreq, MeshImTime
 
 def Aw_from_maxent(G, omega_min=-10, omega_max=10, alpha_min=1e-6, alpha_max=1e2, n_alpha_points=50, n_omega_points=200, error=0.04):
     omega = HyperbolicOmegaMesh(omega_min=omega_min, omega_max=omega_max, n_points=n_omega_points)

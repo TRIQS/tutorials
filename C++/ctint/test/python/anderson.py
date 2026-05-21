@@ -1,5 +1,5 @@
 from h5 import *
-from triqs.gf import *
+from triqs.gfs import *
 from triqs.utility.h5diff import h5diff
 import triqs.utility.mpi as mpi
 

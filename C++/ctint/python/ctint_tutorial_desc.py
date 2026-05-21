@@ -6,7 +6,7 @@ from cpp2py.wrap_generator import *
 module = module_(full_name = "ctint_tutorial", doc = r"CTInt Tutorial", app_name = "ctint_tutorial")
 
 # Imports
-module.add_imports(*['triqs.gf', 'triqs.gf.meshes'])
+module.add_imports(*['triqs.gf', 'triqs.gfs.meshes'])
 
 # Add here all includes
 module.add_include("ctint.hpp")

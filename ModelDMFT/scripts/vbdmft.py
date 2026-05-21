@@ -1,4 +1,4 @@
-from triqs.gf import *
+from triqs.gfs import *
 from triqs.operators import *
 from triqs_cthyb import Solver
 from h5 import HDFArchive

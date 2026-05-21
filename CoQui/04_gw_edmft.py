@@ -28,7 +28,7 @@ from mpi4py import MPI
 
 from h5 import HDFArchive
 import triqs_modest as modest
-from triqs.gf import MeshImFreq
+from triqs.gfs import MeshImFreq
 
 import coqui
 from coqui.utils.imag_axes_ft import IAFT
