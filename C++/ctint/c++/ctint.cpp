@@ -190,7 +190,7 @@ void ctint_solver::solve(double U, double delta, int n_cycles, int length_cycle,
   int random_seed = 34788 + 928374 * world.rank();
 
   // Construct a Monte Carlo loop
-  triqs::mc_tools::mc_generic<dcomplex> CTQMC(random_name, random_seed, 1.0, verbosity);
+  triqs::mc_tools::mc_generic<dcomplex> CTQMC(random_name, random_seed, verbosity);
 
   // Prepare the configuration
   auto config = configuration{G0tilde_tau, beta, delta};
