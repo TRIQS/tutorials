@@ -19,12 +19,12 @@ int main() {
 
   std::cout << "a = " << a << std::endl; // Printing
 
-  matrix<double> i = inverse(a);     // Inverse using LAPACK
-  double d         = determinant(a); // Determinant using LAPACK
+  matrix<double> i = nda::linalg::inv(a); // Inverse using LAPACK
+  double d         = nda::linalg::det(a); // Determinant using LAPACK
 
   auto ac                = a;              // Make a copy (the container is a regular type)
   ac                     = a * a + 2 * ac; // Basic operations (uses BLAS for matrix product)
-  b(0, range(), range()) = ac;             // Assign ac into partial view of b
+  b(0, range::all, range::all) = ac;             // Assign ac into partial view of b
 
   // Writing the array into an hdf5 file.
   auto f = h5::file("a_file.h5", 'w');
