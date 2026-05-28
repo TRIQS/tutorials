@@ -39,7 +39,7 @@ def post_process_pi(solver):
         color_to_orbital.append(find_orbital_index(color, solver.gf_struct))
     
     # initializaiton 
-    iw_mesh = MeshImFreq(beta = solver.beta, S="Boson", n_max = solver.n_iw)
+    iw_mesh = MeshImFreq(beta = solver.beta, statistic="Boson", n_iw = solver.n_iw)
     tau_mesh = solver.results.nn_tau[block_name[0], block_name[0]].mesh
 
     D0_tau = Gf(mesh=tau_mesh, target_shape=(n_color, n_color))
@@ -168,7 +168,7 @@ def post_process_pi(solver):
 def post_process_sigma(solver, **post_proc_params):
     
     # initializaiton 
-    mesh = MeshImFreq(beta = solver.beta, S="Fermion", n_max = solver.n_iw)
+    mesh = MeshImFreq(beta = solver.beta, statistic="Fermion", n_iw = solver.n_iw)
     solver.Sigma_iw = BlockGf(mesh = mesh, gf_struct = solver.gf_struct)
     solver.Sigma_iw.zero()
     solver.Sigma_moments = None
@@ -369,7 +369,7 @@ def extract_screen_matrix_from_D0_tau(blk2_D0_tau, gf_struct):
         for c2 in range(n_color):
             D0_tau.data[:, c1, c2] = blk2_D0_tau[block_name[c1], block_name[c2]].data[:, index_in_block[c1], index_in_block[c2]]
 
-    w0_mesh = MeshImFreq(beta = D0_tau.mesh.beta, S="Boson", n_max = 1)
+    w0_mesh = MeshImFreq(beta = D0_tau.mesh.beta, statistic="Boson", n_iw = 1)
     D0_iw = Gf(mesh=w0_mesh, target_shape=D0_tau.target_shape)
     D0_iw.set_from_fourier(D0_tau, make_zero_tail(D0_iw, n_moments=2))
     D0_w0 = D0_iw.data[0].real

@@ -149,8 +149,8 @@ n_iw  = edmft_helper.set_n_iw(ir_kernel)
 n_tau = n_iw * 6 + 1                         # companion τ-grid length
 
 # Fermionic and bosonic meshes consistent with IR kernel
-iw_mesh_f = MeshImFreq(ir_kernel.beta, S='Fermion', n_iw=n_iw)
-iw_mesh_b = MeshImFreq(ir_kernel.beta, S='Boson',   n_iw=n_iw)
+iw_mesh_f = MeshImFreq(ir_kernel.beta, statistic='Fermion', n_iw=n_iw)
+iw_mesh_b = MeshImFreq(ir_kernel.beta, statistic='Boson',   n_iw=n_iw)
 
 # Convert CoQuí outputs to TRIQS containers
 h0, delta_iw, h_int, u_weiss_iw = edmft_helper.to_triqs_containers(
