@@ -1,4 +1,0 @@
-&input_pw2coqui
-  prefix = 'si'
-  outdir = './out'
-/
